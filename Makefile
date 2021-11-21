@@ -5,7 +5,7 @@ BUILDTAGS=debug
 default: all
 
 deps: assets
-	go get -insecure -tags '$(BUILDTAGS)' -d -v ngrok/...
+	go get -tags '$(BUILDTAGS)' -d -v ngrok/...
 
 server: deps
 	go install -tags '$(BUILDTAGS)' ngrok/main/ngrokd
@@ -19,7 +19,7 @@ client: deps
 assets: client-assets server-assets
 
 bin/go-bindata:
-	GOOS="" GOARCH="" go get -insecure github.com/jteeuwen/go-bindata/go-bindata
+	GOOS="" GOARCH="" go get github.com/jteeuwen/go-bindata/go-bindata
 
 client-assets: bin/go-bindata
 	bin/go-bindata -nomemcopy -pkg=assets -tags=$(BUILDTAGS) \
